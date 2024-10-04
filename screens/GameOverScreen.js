@@ -1,9 +1,13 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, Dimensions } from "react-native";
 import Title from "../components/ui/Title";
 import { StyleSheet } from "react-native";
 import Colors from "../constants/colors";
-import PrimaryButton from '../components/ui/PrimaryButton'
-export default function GameOverScreen({roundsNumber,userNumber,onStartNewGame}) {
+import PrimaryButton from "../components/ui/PrimaryButton";
+export default function GameOverScreen({
+  roundsNumber,
+  userNumber,
+  onStartNewGame,
+}) {
   return (
     <View style={styles.rootContainer}>
       <Title> GAME OVER</Title>
@@ -14,13 +18,16 @@ export default function GameOverScreen({roundsNumber,userNumber,onStartNewGame})
         />
       </View>
       <Text style={styles.summaryText}>
-        Your phone needed <Text style={styles.highlight}>{roundsNumber}</Text> rounds to
-        guess the number <Text style={styles.highlight}>{userNumber}</Text>
+        Your phone needed <Text style={styles.highlight}>{roundsNumber}</Text>{" "}
+        rounds to guess the number{" "}
+        <Text style={styles.highlight}>{userNumber}</Text>
       </Text>
       <PrimaryButton onPress={onStartNewGame}>Start New Game</PrimaryButton>
     </View>
   );
 }
+
+const deviceWidth= Dimensions.get('window').width
 
 const styles = StyleSheet.create({
   rootContainer: {
@@ -30,9 +37,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   imageContainer: {
-    width: 300,
-    height: 300,
-    borderRadius: 150,
+    width: deviceWidth < 380? 150 :300,
+    height: deviceWidth < 380? 150 :300,
+    borderRadius: deviceWidth < 380? 75 :150,
     borderWidth: 3,
     borderColor: Colors.primary800,
     overflow: "hidden",
@@ -43,10 +50,10 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   summaryText: {
-    fontSize:20,
+    fontSize: 20,
     fontFamily: "open-sans",
-    textAlign:'center',
-    marginBottom:24,
+    textAlign: "center",
+    marginBottom: 24,
   },
   highlight: {
     fontFamily: "open-sans-bold",
